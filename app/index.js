@@ -24,8 +24,10 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setClearColor( bgColor, 1);
 document.body.appendChild( renderer.domElement );
 
-const tower1 = new Tower(blockSize, [bgColor], towerWidth, towerHeight)
+const tower1 = new Tower(blockSize, [bgColor], towerWidth, towerHeight, - towerHeight * blockSize / 2)
+const tower2 = new Tower(blockSize, [bgColor], towerWidth, towerHeight, towerHeight * blockSize / 2)
 rotator.add(tower1.group)
+rotator.add(tower2.group)
 
 this.rotatorProps = {
   rotY: Math.PI / 4,
@@ -38,6 +40,7 @@ const animate = () => {
   const now = performance.now()
 
   tower1.update(now)
+  tower2.update(now)
 
   if (now > gamma + 4000) {
     new TWEEN.Tween(this.rotatorProps)
@@ -57,7 +60,6 @@ const animate = () => {
 
   rotator.rotation.y = this.rotatorProps.rotY
   rotator.rotation.z = this.rotatorProps.rotZ
-
 
   requestAnimationFrame( animate );
   renderer.render(scene, camera);

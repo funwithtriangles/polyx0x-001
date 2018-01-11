@@ -172,7 +172,8 @@ class Block {
         (
           props.xPos === this.props.xPos &&
           props.yPos === this.props.yPos &&
-          props.zPos === moves.forward.val
+          props.zPos === moves.forward.val ||
+          moves.forward.val > this.towerHeight - 1
         ) ||
         (
           nextProps.xPos === this.props.xPos &&
@@ -187,7 +188,8 @@ class Block {
         (
           props.xPos === this.props.xPos &&
           props.yPos === this.props.yPos &&
-          props.zPos === moves.backward.val
+          props.zPos === moves.backward.val ||
+          moves.forward.val < 0
         ) ||
         (
           nextProps.xPos === this.props.xPos &&
