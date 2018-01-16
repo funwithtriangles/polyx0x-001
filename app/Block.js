@@ -16,8 +16,8 @@ class Block {
     this.props = {
       scale: 1,
       rot: 0,
-      cubeScale: Math.random() > 0.3 ? 1 : 0.001,
-      sphereScale: 1,
+      cubeScale: 1,
+      // sphereScale: 1,
       xPos: x,
       yPos: y,
       zPos: z,
@@ -31,29 +31,29 @@ class Block {
         uniforms: {
           iTime: { value: 1.0 },
           seed: { value: Math.random() * 100 },
-          color1: { value: new THREE.Color(0xE8216C)},
-          color2: { value: new THREE.Color(0xA6FA53)},
+          color1: { value: new THREE.Color(colors[0])},
+          color2: { value: new THREE.Color(colors[1])},
         }
       })
     }
 
     const mats = [
-      new THREE.MeshBasicMaterial({
+      new THREE.MeshLambertMaterial({
         color: colors[0]
       }),
-      new THREE.MeshBasicMaterial({
+      new THREE.MeshLambertMaterial({
         color: 0xffffff
       }),
-      new THREE.MeshBasicMaterial({
-        color: 0xEB186B
+      new THREE.MeshLambertMaterial({
+        color: colors[1]
       }),
-      new THREE.MeshBasicMaterial({
+      new THREE.MeshLambertMaterial({
         color: 0x222222
       }),
-      new THREE.MeshBasicMaterial({
+      new THREE.MeshLambertMaterial({
         color: 0x222222
       }),
-      new THREE.MeshBasicMaterial({
+      new THREE.MeshLambertMaterial({
         color: 0x222222
       })
     ]
@@ -265,6 +265,16 @@ class Block {
       }
     }
 
+    if (this.props.yPos === 2) {
+      if (moves.right.val === 2) moves.right.enabled = false
+      if (moves.left.val === 2) moves.left.enabled = false
+    }
+
+    if (this.props.xPos === 2) {
+      if (moves.up.val === 2) moves.up.enabled = false
+      if (moves.down.val === 2) moves.down.enabled = false
+    }
+
     const permittedMoves =
     Object.keys(moves).filter(key =>
       moves[key].enabled
@@ -282,7 +292,7 @@ class Block {
     if (doTween) {
       new TWEEN.Tween(this.props)
           .to(nextMove, 500)
-          .easing(TWEEN.Easing.Quadratic.Out)
+          .easing(TWEEN.Easing.Bounce.Out)
           .start();
     }
   }
@@ -295,10 +305,10 @@ class Block {
     const towerHeight = this.towerHeight
 
 
-    this.group.scale.set(s,s,s)
-    this.cube.scale.set(cs,cs,cs)
-    this.sphere.scale.set(ss,ss,ss)
-    this.group.rotation.y = this.props.rot
+    // this.group.scale.set(s,s,s)
+    // this.cube.scale.set(cs,cs,cs)
+    // this.sphere.scale.set(ss,ss,ss)
+    // this.group.rotation.y = this.props.rot
 
     this.group.position.x = this.props.xPos * blockSize - blockSize * 2
     this.group.position.y = this.props.yPos * blockSize - blockSize * 2
