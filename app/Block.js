@@ -4,13 +4,12 @@ import vertShader from './vert.glsl'
 import fragShader from './frag.glsl'
 
 class Block {
-  constructor(x, y, z, blockSize, colors, towerWidth, towerHeight) {
+  constructor (x, y, z, blockSize, colors, towerWidth, towerHeight) {
     this.blockSize = blockSize
     this.towerHeight = towerHeight
     this.towerWidth = towerWidth
 
-    const cubeGeom = new THREE.BoxGeometry(blockSize, blockSize, blockSize)
-    const sphereGeom = new THREE.IcosahedronGeometry(blockSize/2, 3)
+    const cubeGeom = new THREE.BoxBufferGeometry(blockSize, blockSize, blockSize)
 
     // Tweenable properties
     this.props = {
@@ -20,24 +19,22 @@ class Block {
       // sphereScale: 1,
       xPos: x,
       yPos: y,
-      zPos: z,
+      zPos: z
     }
     this.nextProps = {}
 
-    if (Math.random () > 0.9) {
-      this.wavyMat = new THREE.ShaderMaterial({
-        vertexShader:   vertShader,
-        fragmentShader: fragShader,
-        uniforms: {
-          iTime: { value: 1.0 },
-          seed: { value: Math.random() * 100 },
-          color1: { value: new THREE.Color(colors[0])},
-          color2: { value: new THREE.Color(colors[1])},
-        }
-      })
-    }
+    this.wavyMat = new THREE.ShaderMaterial({
+      vertexShader:   vertShader,
+      fragmentShader: fragShader,
+      uniforms: {
+        iTime: { value: Date.now(), type: 'f' },
+        seed: { value: Math.random() * 100 },
+        color1: { value: new THREE.Color(colors[0]) },
+        color2: { value: new THREE.Color(0x2EFFFD) }
+      }
+    })
 
-    const mats = [
+    this.defaultMats = [
       new THREE.MeshLambertMaterial({
         color: colors[0]
       }),
@@ -58,22 +55,15 @@ class Block {
       })
     ]
 
+    this.mats = this.defaultMats.slice(0)
 
-    const sMat = Math.floor(Math.random() * 4)
-    this.sphere = new THREE.Mesh(sphereGeom, mats[sMat])
-
-
-    if (this.wavyMat) {
-        mats[0] = this.wavyMat
-    }
-
-    this.cube = new THREE.Mesh(cubeGeom, mats)
+    this.cube = new THREE.Mesh(cubeGeom, this.mats)
     this.group = new THREE.Object3D()
-    this.group.add(this.sphere)
     this.group.add(this.cube)
 
-    this.visible = true
+    this.flash()
 
+    this.visible = true
   }
 
   change () {
@@ -82,16 +72,28 @@ class Block {
     }
   }
 
+  flash (boosted) {
+    this.cube.material = this.defaultMats.slice(0)
+
+    if (boosted || Math.random() > 0.5) {
+      this.cube.material[Math.floor(Math.random() * 4)] = this.wavyMat
+
+      if (boosted) {
+        this.cube.material[Math.floor(Math.random() * 4)] = this.wavyMat
+      }
+    }
+  }
+
   spin () {
     const r = this.props.r += Math.PI
 
     new TWEEN.Tween(this.props)
-        .to({ rot: r }, 500)
-        .easing(TWEEN.Easing.Quadratic.Out)
-        .start();
+      .to({ rot: r }, 500)
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .start()
   }
 
-  shapeShift() {
+  shapeShift () {
     if (!this.visible && Math.random() > 0.7) {
       let s, c
       if (Math.random() > 0.5) {
@@ -103,9 +105,9 @@ class Block {
       }
 
       new TWEEN.Tween(this.props)
-          .to({ cubeScale: c, sphereScale: s }, 500)
-          .easing(TWEEN.Easing.Quadratic.Out)
-          .start();
+        .to({ cubeScale: c, sphereScale: s }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start()
     }
   }
 
@@ -120,9 +122,9 @@ class Block {
     const r = this.visible ? 0 : Math.PI
 
     new TWEEN.Tween(this.props)
-        .to({ scale: s, rot: r }, 500)
-        .easing(TWEEN.Easing.Quadratic.Out)
-        .start();
+      .to({ scale: s, rot: r }, 500)
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .start()
   }
 
   move (blocks) {
@@ -164,7 +166,7 @@ class Block {
       }
     }
 
-    for (let i = 0; i < blocks.length; i ++) {
+    for (let i = 0; i < blocks.length; i++) {
       const props = blocks[i].props
       const nextProps = blocks[i].nextProps
 
@@ -291,19 +293,15 @@ class Block {
 
     if (doTween) {
       new TWEEN.Tween(this.props)
-          .to(nextMove, 500)
-          .easing(TWEEN.Easing.Bounce.Out)
-          .start();
+        .to(nextMove, 500)
+        .easing(TWEEN.Easing.Bounce.Out)
+        .start()
     }
   }
 
-  update() {
-    const s = this.props.scale
-    const cs = this.props.cubeScale
-    const ss = this.props.sphereScale
+  update (time) {
     const blockSize = this.blockSize
     const towerHeight = this.towerHeight
-
 
     // this.group.scale.set(s,s,s)
     // this.cube.scale.set(cs,cs,cs)
@@ -315,9 +313,8 @@ class Block {
     this.group.position.z = this.props.zPos * blockSize - blockSize * towerHeight / 2
 
     if (this.wavyMat) {
-      this.wavyMat.uniforms.iTime.value = performance.now() / 1000
+      this.wavyMat.uniforms.iTime.value = (time - 1516119639922) / 1000
     }
-
   }
 }
 
