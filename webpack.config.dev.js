@@ -1,13 +1,13 @@
-const webpackConfig = require('./webpack.config');
+const webpackConfig = require('./webpack.config')
 
 module.exports = Object.assign(webpackConfig, {
 
-    devtool: 'eval',
+  devtool: 'eval',
 
-    output: {
-        pathinfo: true,
-        publicPath: '/',
-        filename: '[name].js'
-    }
+  output: {
+    pathinfo: true,
+    publicPath: '/',
+    filename: '[name].js'
+  }
 
-});
+})
