@@ -76,12 +76,25 @@ class Tower {
       this.changeSpeed(15, c.barTime)
     })
 
+    Events.emitter.on('prog-3', () => {
+      this.isRemoving = true
+    })
+
+    Events.emitter.on('bar', () => {
+      if (this.isRemoving) {
+        this.removeBlocks()
+      } else {
+        this.addBlocks()
+      }
+    })
+
     Events.emitter.on('prog-4', () => {
       this.changeScale(10, c.barTime * 16)
     })
 
     Events.emitter.on('prog-5', () => {
       this.changeSpeed(1, c.barTime * 8)
+      this.isRemoving = false
     })
 
     Events.emitter.on('prog-6', () => {
@@ -109,6 +122,22 @@ class Tower {
 
   startPulsing () {
     this.isPulsing = true
+  }
+
+  removeBlocks () {
+    for (let i = 0; i < this.blocks.length; i++) {
+      if (Math.random() > 0.8) {
+        this.blocks[i].group.visible = false
+      }
+    }
+  }
+
+  addBlocks () {
+    for (let i = 0; i < this.blocks.length; i++) {
+      if (Math.random() > 0.8) {
+        this.blocks[i].group.visible = true
+      }
+    }
   }
 
   flicker () {
