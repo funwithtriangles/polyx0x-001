@@ -1,10 +1,8 @@
 import * as THREE from 'three'
 import TWEEN from '@tweenjs/tween.js'
-import vertShader from './vert.glsl'
-import fragShader from './frag.glsl'
 
 class Block {
-  constructor (x, y, z, blockSize, colors, towerWidth, towerHeight) {
+  constructor (x, y, z, blockSize, colors, towerWidth, towerHeight, wavyMats) {
     this.blockSize = blockSize
     this.towerHeight = towerHeight
     this.towerWidth = towerWidth
@@ -23,16 +21,9 @@ class Block {
     }
     this.nextProps = {}
 
-    this.wavyMat = new THREE.ShaderMaterial({
-      vertexShader:   vertShader,
-      fragmentShader: fragShader,
-      uniforms: {
-        iTime: { value: Date.now(), type: 'f' },
-        seed: { value: Math.random() * 100 },
-        color1: { value: new THREE.Color(colors[0]) },
-        color2: { value: new THREE.Color(0x2EFFFD) }
-      }
-    })
+    const wavyMatIndex = Math.floor(Math.random() * wavyMats.length)
+
+    this.wavyMat = wavyMats[wavyMatIndex]
 
     this.defaultMats = [
       new THREE.MeshLambertMaterial({
@@ -74,8 +65,10 @@ class Block {
 
   flash (boosted) {
     this.cube.material = this.defaultMats.slice(0)
+    this.hasWavy = false
 
     if (boosted || Math.random() > 0.5) {
+      this.hasWavy = true
       this.cube.material[Math.floor(Math.random() * 4)] = this.wavyMat
 
       if (boosted) {
@@ -311,10 +304,6 @@ class Block {
     this.group.position.x = this.props.xPos * blockSize - blockSize * 2
     this.group.position.y = this.props.yPos * blockSize - blockSize * 2
     this.group.position.z = this.props.zPos * blockSize - blockSize * towerHeight / 2
-
-    if (this.wavyMat) {
-      this.wavyMat.uniforms.iTime.value = (time - 1516119639922) / 1000
-    }
   }
 }
 
