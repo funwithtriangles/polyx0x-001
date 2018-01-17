@@ -39,9 +39,11 @@ class Blobs {
     }
     this.spin = this.spin.bind(this)
     this.startMoving = this.startMoving.bind(this)
+    this.stopMoving = this.stopMoving.bind(this)
 
     Events.emitter.on('clap', this.spin)
     Events.emitter.on('prog-1', this.startMoving)
+    Events.emitter.on('prog-3', this.stopMoving)
 
     this.moving = false
 
@@ -67,6 +69,17 @@ class Blobs {
       .to({ posZ: calcPosZ(nextTime) }, transitionTime)
       .easing(TWEEN.Easing.Sinusoidal.In)
       .onComplete(() => { this.moving = true })
+      .start()
+  }
+
+  stopMoving () {
+    const transitionTime = 2000
+    this.moving = false
+
+    new TWEEN.Tween(this.props)
+      .to({ posZ: 0 }, transitionTime)
+      .easing(TWEEN.Easing.Sinusoidal.In)
+      .onComplete(() => { })
       .start()
   }
 

@@ -44,15 +44,19 @@ this.rotatorProps = {
 }
 
 Events.emitter.on('prog-1', () => {
-  isRotating = true
+  isRotating = 'stepped'
 })
 
 Events.emitter.on('prog-2', () => {
   isRotating = false
 })
 
+Events.emitter.on('prog-3', () => {
+  isRotating = 'smooth'
+})
+
 Events.emitter.on('half-bar', () => {
-  if (isRotating) {
+  if (isRotating === 'stepped') {
     new TWEEN.Tween(this.rotatorProps)
       .to({ rotZ: this.rotatorProps.rotZ + Math.PI / 4 }, 500)
       .easing(TWEEN.Easing.Quadratic.Out)
@@ -67,6 +71,10 @@ const animate = () => {
   tower1.update(time)
   tower2.update(time)
   blobs.update(time)
+
+  if (isRotating === 'smooth') {
+    this.rotatorProps.rotZ += 0.01
+  }
 
   rotator.rotation.z = this.rotatorProps.rotZ
 

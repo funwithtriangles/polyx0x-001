@@ -69,6 +69,14 @@ class Events {
         if (barCount === 23) {
           this.emitter.emit('prog-2')
         }
+
+        if (barCount === 32) {
+          this.emitter.emit('prog-3')
+        }
+
+        if (barCount === 48) {
+          this.emitter.emit('prog-4')
+        }
       }
 
       if (allBeatCount === 34) {
