@@ -6,6 +6,7 @@ let beatCount = 1
 let barCount = 1
 let qBeatCount = 1
 let allQBeatCount = 1
+let all16BeatCount = 1
 
 const beatTime = c.beatTime / 1000
 
@@ -20,12 +21,18 @@ class Events {
 
   update () {
     const time = this.audio.currentTime
+    const current16Beat = Math.floor(time / (beatTime / 16)) + 16
     const currentQBeat = Math.floor(time / (beatTime / 4)) + 4
     const currentBeat = Math.floor(time / beatTime) + 1
 
+    if (current16Beat > all16BeatCount) {
+      this.emitter.emit('16-beat')
+      all16BeatCount = current16Beat
+    }
+
     if (currentQBeat > allQBeatCount) {
       qBeatCount++
-      allQBeatCount++
+      allQBeatCount = currentQBeat
 
       if (qBeatCount > 16) {
         qBeatCount = 1

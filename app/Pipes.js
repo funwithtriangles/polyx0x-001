@@ -17,21 +17,27 @@ class Pipes {
     }
 
     this.flicker()
+    this.isFlickering = Math.random() > 0.9
 
-    Events.emitter.on('quarter-beat', () => {
+    Events.emitter.on('16-beat', () => {
       this.flicker()
     })
   }
 
   flicker () {
-    const randomIndex = Math.floor(Math.random() * this.numPipes)
-    for (let i = 0; i < this.numPipes; i++) {
-      const pipe = this.pipes[i]
-      if (randomIndex === i) {
-        pipe.group.visible = true
-      } else {
-        pipe.group.visible = false
+    if (this.isFlickering) {
+      const randomIndex = Math.floor(Math.random() * this.numPipes)
+      for (let i = 0; i < this.numPipes; i++) {
+        const pipe = this.pipes[i]
+        if (randomIndex === i) {
+          pipe.group.visible = true
+        } else {
+          pipe.group.visible = false
+        }
       }
+      this.isFlickering = Math.random() < 0.9
+    } else {
+      this.isFlickering = Math.random() > 0.9
     }
   }
 }
