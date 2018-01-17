@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events'
-import tune from '../assets/sound/ph2.m4a'
+import { audio } from './Controls'
 import * as c from './constants'
 let allBeatCount = 1
 let beatCount = 1
@@ -7,23 +7,23 @@ let barCount = 1
 let qBeatCount = 1
 let allQBeatCount = 1
 let all16BeatCount = 1
-
 const beatTime = c.beatTime / 1000
 
 class Events {
   constructor () {
-    this.audio = new Audio(tune)
-    this.audio.play()
-
-    this.delta = this.audio.currentTime - beatTime
+    this.delta = audio.currentTime - beatTime
     this.emitter = new EventEmitter()
   }
 
   update () {
-    const time = this.audio.currentTime
+    const time = audio.currentTime
     const current16Beat = Math.floor(time / (beatTime / 16)) + 16
     const currentQBeat = Math.floor(time / (beatTime / 4)) + 4
     const currentBeat = Math.floor(time / beatTime) + 1
+
+    if (allBeatCount === 2) {
+      this.emitter.emit('start')
+    }
 
     if (current16Beat > all16BeatCount) {
       this.emitter.emit('16-beat')

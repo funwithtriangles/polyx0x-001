@@ -86,7 +86,7 @@ class Tower {
 
     Events.emitter.on('prog-6', () => {
       this.changeScale(1, c.beatTime, TWEEN.Easing.Bounce.Out)
-      this.changeSpeed(30, c.barTime)
+      this.changeSpeed(30, c.beatTime)
     })
 
     this.isPulsing = false

@@ -1,9 +1,45 @@
-// Apply a natural box layout model to all elements
-// but allowing components to change
-// http://www.paulirish.com/2012/box-sizing-border-box-ftw/
 html {
     box-sizing: border-box;
+    color: white;
+    font-family: "Lucida Console", Monaco, monospace;
 }
 *, *:before, *:after {
     box-sizing: inherit;
+}
+
+.controls {
+  display: block;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1;
+  background: black;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0.4rem;
+  border-radius: 2rem;
+  border: 1px solid black;
+
+  &:hover {
+    border-color: white;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.control-pause {
+  display: none;
+}
+
+.is-playing {
+  .control-pause {
+    display: block;
+  }
+
+  .control-play {
+    display: none;
+  }
 }

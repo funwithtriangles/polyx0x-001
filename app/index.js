@@ -3,6 +3,9 @@ import TWEEN from '@tweenjs/tween.js'
 import Events from './Events'
 import Tower from './Tower'
 import Blobs from './Blobs'
+import '../assets/styles/index.scss'
+import '../assets/images/play.svg'
+import '../assets/images/pause.svg'
 
 const scene = new THREE.Scene()
 const width = window.innerWidth

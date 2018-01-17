@@ -37,7 +37,9 @@ class Blobs {
       rotSpeed: 0.05,
       posZ: -1500
     }
-
+    Events.emitter.on('start', () => {
+      this.slowlyTowardsCamera()
+    })
     Events.emitter.on('clap', () => {
       this.spin()
     })
@@ -58,8 +60,6 @@ class Blobs {
     })
 
     this.moving = false
-
-    this.slowlyTowardsCamera()
   }
 
   spin () {

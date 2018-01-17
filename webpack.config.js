@@ -98,7 +98,7 @@ module.exports = {
 
       // IMAGES
       {
-        test: /\.(jpe?g|png|gif|m4a)$/,
+        test: /\.(jpe?g|png|gif|svg|m4a)$/,
         loader: 'file-loader',
         options: {
           name: '[path][name].[ext]'
