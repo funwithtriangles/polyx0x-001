@@ -81,8 +81,16 @@ class Events {
           this.emitter.emit('prog-3')
         }
 
-        if (barCount === 48) {
+        if (barCount === 40) {
           this.emitter.emit('prog-4')
+        }
+
+        if (barCount === 56) {
+          this.emitter.emit('prog-5')
+        }
+
+        if (barCount === 66) {
+          this.emitter.emit('prog-6')
         }
       }
 

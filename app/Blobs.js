@@ -37,13 +37,25 @@ class Blobs {
       rotSpeed: 0.05,
       posZ: -1500
     }
-    this.spin = this.spin.bind(this)
-    this.startMoving = this.startMoving.bind(this)
-    this.stopMoving = this.stopMoving.bind(this)
 
-    Events.emitter.on('clap', this.spin)
-    Events.emitter.on('prog-1', this.startMoving)
-    Events.emitter.on('prog-3', this.stopMoving)
+    Events.emitter.on('clap', () => {
+      this.spin()
+    })
+    Events.emitter.on('prog-1', () => {
+      this.startMoving()
+    })
+    Events.emitter.on('prog-3', () => {
+      this.stopMoving()
+    })
+    Events.emitter.on('prog-4', () => {
+      this.startMoving()
+    })
+    Events.emitter.on('prog-5', () => {
+      this.stopMoving()
+    })
+    Events.emitter.on('prog-6', () => {
+      this.startMoving()
+    })
 
     this.moving = false
 

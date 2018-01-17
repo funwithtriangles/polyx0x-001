@@ -22,6 +22,12 @@ class Pipes {
     Events.emitter.on('16-beat', () => {
       this.flicker()
     })
+
+    this.isRotating = false
+
+    Events.emitter.on('prog-5', () => {
+      this.isRotating = true
+    })
   }
 
   flicker () {
@@ -38,6 +44,12 @@ class Pipes {
       this.isFlickering = Math.random() < 0.9
     } else {
       this.isFlickering = Math.random() > 0.9
+    }
+  }
+
+  update () {
+    if (this.isRotating) {
+      this.group.rotation.z -= 0.015
     }
   }
 }

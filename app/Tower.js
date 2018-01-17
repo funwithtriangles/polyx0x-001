@@ -79,20 +79,36 @@ class Tower {
     Events.emitter.on('prog-4', () => {
       this.changeScale(10, c.barTime * 16)
     })
+
+    Events.emitter.on('prog-5', () => {
+      this.changeSpeed(1, c.barTime * 8)
+    })
+
+    Events.emitter.on('prog-6', () => {
+      this.changeScale(1, c.beatTime, TWEEN.Easing.Bounce.Out)
+      this.changeSpeed(30, c.barTime)
+    })
+
+    this.isPulsing = false
   }
 
-  changeScale (scale, duration) {
+  changeScale (scale, duration, tween) {
+    this.isPulsing = false
     new TWEEN.Tween(this.props)
       .to({ scale }, duration)
-      .easing(TWEEN.Easing.Quadratic.InOut)
+      .easing(tween || TWEEN.Easing.Quadratic.In)
       .start()
   }
 
-  changeSpeed (speed, duration) {
+  changeSpeed (speed, duration, tween) {
     new TWEEN.Tween(this.props)
       .to({ speed: speed }, duration)
-      .easing(TWEEN.Easing.Quadratic.In)
+      .easing(tween || TWEEN.Easing.Quadratic.In)
       .start()
+  }
+
+  startPulsing () {
+    this.isPulsing = true
   }
 
   flicker () {
@@ -120,6 +136,10 @@ class Tower {
     if (this.group.position.z > this.maxZ) {
       this.group.position.z = this.minZ
       this.flicker()
+    }
+
+    if (this.isPulsing === true) {
+      this.props.scale = (Math.sin(time / 1000) * 5) + 6
     }
 
     this.tower.scale.set(this.props.scale, this.props.scale, 1)
