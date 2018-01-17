@@ -52,11 +52,11 @@ class Tower {
     })
 
     Events.emitter.on('prog-2', () => {
-      this.changeSpeed(20, c.barTime)
+      this.changeSpeed(15, c.barTime)
     })
 
     Events.emitter.on('prog-4', () => {
-      this.changeScale(5, c.barTime * 12)
+      this.changeScale(10, c.barTime * 16)
     })
   }
 
