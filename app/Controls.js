@@ -2,6 +2,7 @@ import TWEEN from '@tweenjs/tween.js'
 import tune from '../assets/sound/ph2.m4a'
 
 const controlEl = document.querySelector('.controls')
+const playEl = document.querySelector('#control-play')
 const bodyEl = document.body
 let isPlaying = false
 
@@ -38,4 +39,8 @@ const togglePlaying = () => {
 
 controlEl.addEventListener('click', () => {
   togglePlaying()
+})
+
+playEl.addEventListener('click', () => {
+  play()
 })

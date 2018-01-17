@@ -42,4 +42,42 @@ html {
   .control-play {
     display: none;
   }
+
+  #intro {
+    display: none;
+  }
+}
+
+.content-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  width: 40rem;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid white;
+  padding: 2rem;
+}
+
+.button {
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  display: block;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.button-large {
+  font-size: 1.5rem;
+  margin: 2rem 0;
 }
