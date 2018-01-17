@@ -7,7 +7,7 @@ import Blobs from './Blobs'
 const scene = new THREE.Scene()
 const width = window.innerWidth
 const height = window.innerHeight
-const camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000)
+const camera = new THREE.PerspectiveCamera(45, width / height, 1, 5000)
 camera.position.z = 300
 const groupSize = width / 2
 const towerHeight = 20
