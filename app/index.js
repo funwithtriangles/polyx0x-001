@@ -15,13 +15,11 @@ const width = window.innerWidth
 const height = window.innerHeight
 const ratio = width / height
 const camera = new THREE.PerspectiveCamera(45, ratio, 1, 5000)
-camera.position.z = 300 * (ratio / 2)
 const groupSize = width / 2
 const towerHeight = 20
 const towerWidth = 5
 const blockSize = groupSize / towerWidth
 let isRotating = false
-
 const colors = [0x004C48, 0x962515]
 
 scene.fog = new THREE.FogExp2(colors[0], 0.002)
@@ -70,6 +68,19 @@ Events.emitter.on('half-bar', () => {
       .start()
   }
 })
+
+window.addEventListener('resize', onWindowResize, false)
+
+function onWindowResize () {
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.position.z = 300 * (ratio / 2)
+
+  camera.updateProjectionMatrix()
+
+  renderer.setSize(window.innerWidth, window.innerHeight)
+}
+
+onWindowResize()
 
 const animate = () => {
   const time = Date.now()
