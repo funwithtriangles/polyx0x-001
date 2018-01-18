@@ -74,7 +74,7 @@ Events.emitter.on('half-bar', () => {
 
 Events.emitter.on('double-clap', () => {
   new TWEEN.Tween(this.rotatorProps)
-    .to({ rotZ: this.rotatorProps.rotZ - Math.PI / 4 }, 250)
+    .to({ rotZ: this.rotatorProps.rotZ - Math.PI / 2 }, 250)
     .easing(TWEEN.Easing.Quadratic.Out)
     .start()
 })

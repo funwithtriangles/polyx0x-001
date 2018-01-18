@@ -63,7 +63,7 @@ class Blobs {
   }
 
   spin () {
-    // this.cubeCamera.update(this.renderer, this.scene)
+    this.cubeCamera.update(this.renderer, this.scene)
 
     this.props.rotSpeed = 0.2
 
