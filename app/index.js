@@ -3,10 +3,12 @@ import TWEEN from '@tweenjs/tween.js'
 import Events from './Events'
 import Tower from './Tower'
 import Blobs from './Blobs'
+import './Controls'
 import './analytics'
 import '../assets/styles/index.scss'
 import '../assets/images/play.svg'
 import '../assets/images/pause.svg'
+import '../assets/images/cover.gif'
 
 // JS has loaded so add class
 document.body.classList.add('is-loaded')

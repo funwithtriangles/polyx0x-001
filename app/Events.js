@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events'
-import { audio } from './Controls'
+import audio from './audio'
 import * as c from './constants'
 let allBeatCount = 1
 let beatCount = 1
@@ -107,6 +107,9 @@ class Events {
             break
           case 67:
             this.emitter.emit('drop')
+            break
+          case 72:
+            this.emitter.emit('end')
             break
         }
       }

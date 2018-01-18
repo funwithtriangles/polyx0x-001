@@ -1,17 +1,23 @@
 import TWEEN from '@tweenjs/tween.js'
-import tune from '../assets/sound/ph2.m4a'
+import audio from './audio'
+import Events from './Events'
 
 const controlEl = document.querySelector('.controls')
 const resumeText = document.querySelector('#resume-run')
 const playEl = document.querySelector('#control-play')
 const bodyEl = document.body
+
 let isPlaying = false
 
-export const audio = new Audio(tune)
-audio.volume = 0
+Events.emitter.on('end', () => {
+  bodyEl.classList.remove('is-active')
+  bodyEl.classList.remove('is-playing')
+  bodyEl.classList.add('is-end')
+})
 
 const play = () => {
   bodyEl.classList.add('is-playing')
+  bodyEl.classList.add('is-active')
   bodyEl.classList.remove('info-is-showing')
   resumeText.innerText = 'resume'
   audio.play()
