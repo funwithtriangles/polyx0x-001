@@ -9,7 +9,7 @@ const dirNode = 'node_modules'
 const dirApp = path.join(__dirname, 'app')
 const dirAssets = path.join(__dirname, 'assets')
 
-const appHtmlTitle = 'Tests [polyx0x_001]'
+const appHtmlTitle = 'Polyop - run_grids - Free EP out now'
 
 /**
  * Webpack Configuration
