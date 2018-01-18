@@ -71,7 +71,7 @@ class Events {
         }
 
         switch (barCount) {
-          case 8:
+          case 9:
             isClapping = true
             break
           case 16:
@@ -109,18 +109,18 @@ class Events {
             this.emitter.emit('drop')
             break
         }
+      }
 
-        if (allBeatCount === 34) {
-          this.emitter.emit('double-clap')
-        }
+      if (allBeatCount === 31) {
+        this.emitter.emit('double-clap')
+      }
 
-        if (isClapping) {
-          if (beatCount === 2 || beatCount === 4) {
-            this.emitter.emit('clap')
-          }
+      if (isClapping) {
+        if (beatCount === 2 || beatCount === 4) {
+          this.emitter.emit('clap')
         }
       }
-      // console.log(allBeatCount, barCount)
+      // console.log(beatCount, allBeatCount, barCount)
     }
   }
 }
