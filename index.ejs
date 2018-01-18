@@ -52,7 +52,7 @@
         <h1>Polyx0x001 - Blah blah</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
         <p><a class="button button-large" id='control-play' href="#">> Play video</a></p>
-        <p><a class="button"  href="#">> Listen to the whole EP on Bandcamp</a></p>
+        <p><a class="button" href="https://polyop.bandcamp.com/XXXXX" data-ga-track>> Listen to the whole EP on Bandcamp</a></p>
       </div>
     </div>
     <a class="controls" href="#">
@@ -60,5 +60,22 @@
       <img src='assets/images/play.svg' class="control-play" alt="Play" />
     </a>
   </div>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	 	ga('create', 'UA-60252396-1', 'auto');
+	  ga('send', 'pageview');
+
+		function trackOutboundLink(url) {
+		   ga('send', 'event', 'outbound', 'click', url, {
+		     'transport': 'beacon',
+		     'hitCallback': function(){document.location = url;}
+		   });
+		}
+  </script>
 </body>
 </html>
