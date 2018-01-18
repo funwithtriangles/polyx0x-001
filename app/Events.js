@@ -8,6 +8,7 @@ let qBeatCount = 1
 let allQBeatCount = 1
 let all16BeatCount = 1
 const beatTime = c.beatTime / 1000
+let isClapping = false
 
 class Events {
   constructor () {
@@ -69,60 +70,56 @@ class Events {
           this.emitter.emit('bar-2')
         }
 
-        if (barCount === 16) {
-          this.emitter.emit('prog-1')
+        switch (barCount) {
+          case 8:
+            isClapping = true
+            break
+          case 16:
+            this.emitter.emit('prog-1')
+            break
+          case 23:
+            this.emitter.emit('prog-2')
+            break
+          case 32:
+            this.emitter.emit('prog-3')
+            break
+          case 39:
+            this.emitter.emit('claps-go')
+            break
+          case 40:
+            this.emitter.emit('prog-4')
+            break
+          case 47:
+            this.emitter.emit('claps-back')
+            break
+          case 49:
+            this.emitter.emit('hats-stop')
+            break
+          case 56:
+            this.emitter.emit('prog-5')
+            break
+          case 61:
+            isClapping = false
+            this.emitter.emit('claps-fade')
+            break
+          case 66:
+            this.emitter.emit('prog-6')
+            break
+          case 67:
+            this.emitter.emit('drop')
+            break
         }
 
-        if (barCount === 23) {
-          this.emitter.emit('prog-2')
+        if (allBeatCount === 34) {
+          this.emitter.emit('double-clap')
         }
 
-        if (barCount === 32) {
-          this.emitter.emit('prog-3')
-        }
-
-        if (barCount === 39) {
-          this.emitter.emit('claps-go')
-        }
-
-        if (barCount === 40) {
-          this.emitter.emit('prog-4')
-        }
-
-        if (barCount === 47) {
-          this.emitter.emit('claps-back')
-        }
-
-        if (barCount === 49) {
-          this.emitter.emit('hats-stop')
-        }
-
-        if (barCount === 56) {
-          this.emitter.emit('prog-5')
-        }
-
-        if (barCount === 61) {
-          this.emitter.emit('claps-fade')
-        }
-
-        if (barCount === 66) {
-          this.emitter.emit('prog-6')
-        }
-
-        if (barCount === 67) {
-          this.emitter.emit('prog-6')
-        }
-      }
-
-      if (allBeatCount === 34) {
-        this.emitter.emit('clap')
-      }
-      if (barCount > 8) {
-        if (beatCount === 2 || beatCount === 4) {
-          this.emitter.emit('clap')
+        if (isClapping) {
+          if (beatCount === 2 || beatCount === 4) {
+            this.emitter.emit('clap')
+          }
         }
       }
-
       // console.log(allBeatCount, barCount)
     }
   }
