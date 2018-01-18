@@ -98,8 +98,11 @@ class Tower {
     })
 
     Events.emitter.on('prog-6', () => {
-      this.changeScale(1, c.beatTime, TWEEN.Easing.Bounce.Out)
       this.changeSpeed(30, c.beatTime)
+    })
+
+    Events.emitter.on('drop', () => {
+      this.changeScale(1, c.beatTime, TWEEN.Easing.Elastic.Out)
     })
 
     this.isPulsing = false
