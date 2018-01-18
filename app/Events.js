@@ -81,15 +81,35 @@ class Events {
           this.emitter.emit('prog-3')
         }
 
+        if (barCount === 39) {
+          this.emitter.emit('claps-go')
+        }
+
         if (barCount === 40) {
           this.emitter.emit('prog-4')
+        }
+
+        if (barCount === 47) {
+          this.emitter.emit('claps-back')
+        }
+
+        if (barCount === 49) {
+          this.emitter.emit('hats-stop')
         }
 
         if (barCount === 56) {
           this.emitter.emit('prog-5')
         }
 
+        if (barCount === 61) {
+          this.emitter.emit('claps-fade')
+        }
+
         if (barCount === 66) {
+          this.emitter.emit('prog-6')
+        }
+
+        if (barCount === 67) {
           this.emitter.emit('prog-6')
         }
       }
@@ -103,7 +123,7 @@ class Events {
         }
       }
 
-      // console.log(beatCount, allBeatCount, barCount)
+      // console.log(allBeatCount, barCount)
     }
   }
 }
