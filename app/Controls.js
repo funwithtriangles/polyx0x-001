@@ -2,6 +2,7 @@ import TWEEN from '@tweenjs/tween.js'
 import tune from '../assets/sound/ph2.m4a'
 
 const controlEl = document.querySelector('.controls')
+const resumeText = document.querySelector('#resume-run')
 const playEl = document.querySelector('#control-play')
 const bodyEl = document.body
 let isPlaying = false
@@ -11,6 +12,8 @@ audio.volume = 0
 
 const play = () => {
   bodyEl.classList.add('is-playing')
+  bodyEl.classList.remove('info-is-showing')
+  resumeText.innerText = 'resume'
   audio.play()
   new TWEEN.Tween(audio)
     .to({ volume: 1 }, 3000)
@@ -21,6 +24,7 @@ const play = () => {
 
 const pause = () => {
   bodyEl.classList.remove('is-playing')
+  bodyEl.classList.add('info-is-showing')
   new TWEEN.Tween(audio)
     .to({ volume: 0 }, 300)
     .easing(TWEEN.Easing.Quadratic.In)

@@ -7,6 +7,7 @@
     <style>
       body {
         background: black;
+        margin: 0;
       }
 
       @keyframes flash {
@@ -37,22 +38,23 @@
         left: 0;
         align-items: center;
         justify-content: center;
-        font-family: "Lucida Console", Monaco, monospace;
+        font-family: "Console", monospace;
         animation: flash 0.1s infinite;
       }
     </style>
 </head>
-<body style='margin:0;'>
+<body class="info-is-showing">
   <div class="loading">
     <span>Loading...</span>
   </div>
   <div class="ui-container">
     <div class="content-container">
       <div id="intro" class="content">
-        <h1>Polyx0x001 - Blah blah</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-        <p><a class="button button-large" id='control-play' href="#">> Play video</a></p>
-        <p><a class="button" href="https://polyop.bandcamp.com/XXXXX" data-ga-track>> Listen to the whole EP on Bandcamp</a></p>
+        <h1>polyop - acid_tests [polyx0x_001]</h2>
+        <p>Headphones recommended. Google Chrome recommended. Modern device recommended. Phase-shift brain cap recommended.</p>
+        <p><a class="button button-large" id='control-play' href="#">> <span id="resume-run">run</span> mind_packet_upload.exe</a></p>
+        <p><a class="button" href="https://polyop.bandcamp.com/XXXXX" data-ga-track>> .wav via bandcamp</a></p>
+        <p><a class="button" href="https://polyop.bandcamp.com/XXXXX" data-ga-track>> view source</a></p>
       </div>
     </div>
     <a class="controls" href="#">

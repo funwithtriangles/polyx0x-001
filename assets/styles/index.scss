@@ -1,10 +1,17 @@
 html {
-    box-sizing: border-box;
-    color: white;
-    font-family: "Lucida Console", Monaco, monospace;
+  box-sizing: border-box;
+  color: white;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
 }
+
 *, *:before, *:after {
     box-sizing: inherit;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 1.2rem;
 }
 
 .controls {
@@ -48,6 +55,12 @@ html {
   }
 }
 
+.info-is-showing {
+  .controls {
+    display: none;
+  }
+}
+
 .is-loaded {
   .loading {
     display: none;
@@ -70,7 +83,7 @@ html {
 
 .content {
   width: 40rem;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.7);
   border: 1px solid white;
   padding: 2rem;
 }
@@ -79,7 +92,7 @@ html {
   font-weight: bold;
   color: white;
   text-decoration: none;
-  display: block;
+  display: inline-block;
 
   &:hover {
     text-decoration: underline;
@@ -88,5 +101,11 @@ html {
 
 .button-large {
   font-size: 1.5rem;
-  margin: 2rem 0;
+  margin: 1rem 0 2rem;
+  border-bottom: 1px solid white;
+
+  &:hover {
+    border-color: transparent;
+    text-decoration: none;
+  }
 }
