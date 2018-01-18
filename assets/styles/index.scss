@@ -48,6 +48,15 @@ html {
   }
 }
 
+.is-loaded {
+  .loading {
+    display: none;
+  }
+  .ui-container {
+    display: block;
+  }
+}
+
 .content-container {
   position: absolute;
   top: 0;

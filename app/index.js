@@ -7,6 +7,9 @@ import '../assets/styles/index.scss'
 import '../assets/images/play.svg'
 import '../assets/images/pause.svg'
 
+// JS has loaded so add class
+document.body.classList.add('is-loaded')
+
 const scene = new THREE.Scene()
 const width = window.innerWidth
 const height = window.innerHeight
