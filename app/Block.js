@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { Object3D, BoxBufferGeometry, MeshLambertMaterial, Mesh } from 'three'
 import TWEEN from '@tweenjs/tween.js'
 
 class Block {
@@ -7,7 +7,7 @@ class Block {
     this.towerHeight = towerHeight
     this.towerWidth = towerWidth
 
-    const cubeGeom = new THREE.BoxBufferGeometry(blockSize, blockSize, blockSize)
+    const cubeGeom = new BoxBufferGeometry(blockSize, blockSize, blockSize)
 
     // Tweenable properties
     this.props = {
@@ -26,30 +26,30 @@ class Block {
     this.wavyMat = wavyMats[wavyMatIndex]
 
     this.defaultMats = [
-      new THREE.MeshLambertMaterial({
+      new MeshLambertMaterial({
         color: colors[0]
       }),
-      new THREE.MeshLambertMaterial({
+      new MeshLambertMaterial({
         color: 0xffffff
       }),
-      new THREE.MeshLambertMaterial({
+      new MeshLambertMaterial({
         color: colors[1]
       }),
-      new THREE.MeshLambertMaterial({
+      new MeshLambertMaterial({
         color: 0x222222
       }),
-      new THREE.MeshLambertMaterial({
+      new MeshLambertMaterial({
         color: 0x222222
       }),
-      new THREE.MeshLambertMaterial({
+      new MeshLambertMaterial({
         color: 0x222222
       })
     ]
 
     this.mats = this.defaultMats.slice(0)
 
-    this.cube = new THREE.Mesh(cubeGeom, this.mats)
-    this.group = new THREE.Object3D()
+    this.cube = new Mesh(cubeGeom, this.mats)
+    this.group = new Object3D()
     this.group.add(this.cube)
 
     this.flash()

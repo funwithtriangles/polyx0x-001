@@ -1,6 +1,6 @@
 import TWEEN from '@tweenjs/tween.js'
 
-import * as THREE from 'three'
+import { Object3D, ShaderMaterial, Color } from 'three'
 import Block from './Block'
 import Pipes from './Pipes'
 import Events from './Events'
@@ -19,11 +19,11 @@ class Tower {
     this.beta = now
     this.alpha = now + 500
     this.blocks = []
-    this.group = new THREE.Object3D()
+    this.group = new Object3D()
     this.group.position.z = startPos
     this.maxZ = towerHeight * blockSize
     this.minZ = -this.maxZ
-    this.tower = new THREE.Object3D()
+    this.tower = new Object3D()
     this.group.add(this.tower)
     this.group.add(this.pipes.group)
     this.props = {
@@ -34,14 +34,14 @@ class Tower {
     this.wavyMats = []
 
     for (let i = 0; i < numWavyMats; i++) {
-      const mat = new THREE.ShaderMaterial({
+      const mat = new ShaderMaterial({
         vertexShader:   vertShader,
         fragmentShader: fragShader,
         uniforms: {
           iTime: { value: Date.now(), type: 'f' },
           seed: { value: Math.random() * 100 },
-          color1: { value: new THREE.Color(colors[0]) },
-          color2: { value: new THREE.Color(0x2EFFFD) }
+          color1: { value: new Color(colors[0]) },
+          color2: { value: new Color(0x2EFFFD) }
         }
       })
 

@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { MeshStandardMaterial, CubeCamera, Object3D } from 'three'
 import { MarchingCubes } from 'three-addons'
 import TWEEN from '@tweenjs/tween.js'
 import Events from './Events'
@@ -13,13 +13,13 @@ class Blobs {
     this.scene = scene
     this.delta = Date.now()
 
-    this.cubeCamera = new THREE.CubeCamera(1, 10000, 256)
+    this.cubeCamera = new CubeCamera(1, 10000, 256)
 
     setTimeout(() => {
       this.cubeCamera.update(this.renderer, this.scene)
     }, 100)
 
-    const mat = new THREE.MeshStandardMaterial(
+    const mat = new MeshStandardMaterial(
       { color: 0xFFFFFF, envMap: this.cubeCamera.renderTarget, roughness: 0.1, metalness: 1.0 }
     )
     this.object = new MarchingCubes(32, mat, true, true)
@@ -29,7 +29,7 @@ class Blobs {
     this.object.enableUvs = false
     this.object.enableColors = false
 
-    this.group = new THREE.Object3D()
+    this.group = new Object3D()
     this.group.add(this.cubeCamera)
     this.group.add(this.object)
 

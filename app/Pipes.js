@@ -1,14 +1,12 @@
-import TWEEN from '@tweenjs/tween.js'
-import * as THREE from 'three'
+import { Object3D } from 'three'
 import Pipe from './Pipe'
 import Events from './Events'
-import * as c from './constants'
 
 class Pipes {
   constructor (blockSize, towerHeight) {
     this.pipes = []
     this.numPipes = 3
-    this.group = new THREE.Object3D()
+    this.group = new Object3D()
 
     for (let i = 0; i < this.numPipes; i++) {
       const pipe = new Pipe(blockSize, towerHeight)

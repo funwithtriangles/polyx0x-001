@@ -1,40 +1,41 @@
-import * as THREE from 'three'
+import { Object3D, TubeBufferGeometry, MeshBasicMaterial,
+  Mesh, Vector3, CubicBezierCurve3, LineCurve3 } from 'three'
 import _ from 'lodash'
 
 class Pipes {
   constructor (blockSize, towerHeight) {
     const boundry = [2, 2]
 
-    // const cubeGeom = new THREE.BoxGeometry(blockSize, blockSize, blockSize)
-    // const cubeMaterial = new THREE.MeshBasicMaterial({ wireframe: true })
-    // const blockHelper = new THREE.Mesh(cubeGeom, cubeMaterial)
-    const material = new THREE.MeshBasicMaterial({ wireframe: true, color: 0x2EFFFD, fog: false })
-    this.group = new THREE.Object3D()
+    // const cubeGeom = new BoxGeometry(blockSize, blockSize, blockSize)
+    // const cubeMaterial = new MeshBasicMaterial({ wireframe: true })
+    // const blockHelper = new Mesh(cubeGeom, cubeMaterial)
+    const material = new MeshBasicMaterial({ wireframe: true, color: 0x2EFFFD, fog: false })
+    this.group = new Object3D()
 
     const createBend = (prevDir, nextDir) => {
-      const bendCurve = new THREE.CubicBezierCurve3(
-        new THREE.Vector3(-prevDir[0] * blockSize / 2, -prevDir[1] * blockSize / 2, -prevDir[2] * blockSize / 2),
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(nextDir[0] * blockSize / 2, nextDir[1] * blockSize / 2, nextDir[2] * blockSize / 2)
+      const bendCurve = new CubicBezierCurve3(
+        new Vector3(-prevDir[0] * blockSize / 2, -prevDir[1] * blockSize / 2, -prevDir[2] * blockSize / 2),
+        new Vector3(0, 0, 0),
+        new Vector3(0, 0, 0),
+        new Vector3(nextDir[0] * blockSize / 2, nextDir[1] * blockSize / 2, nextDir[2] * blockSize / 2)
       )
-      const bendGeom = new THREE.TubeBufferGeometry(bendCurve, 10, 10, 8, false)
-      const bendMesh = new THREE.Mesh(bendGeom, material)
-      const bend = new THREE.Object3D()
+      const bendGeom = new TubeBufferGeometry(bendCurve, 10, 10, 8, false)
+      const bendMesh = new Mesh(bendGeom, material)
+      const bend = new Object3D()
       bend.add(bendMesh)
       // bend.add(blockHelper.clone())
       return bend
     }
 
-    const straightLine = new THREE.LineCurve3(
-      new THREE.Vector3(0, 0, 0),
-      new THREE.Vector3(blockSize, 0, 0)
+    const straightLine = new LineCurve3(
+      new Vector3(0, 0, 0),
+      new Vector3(blockSize, 0, 0)
     )
-    const straightGeometry = new THREE.TubeBufferGeometry(straightLine, 10, 10, 8, false)
-    const straightMesh = new THREE.Mesh(straightGeometry, material)
+    const straightGeometry = new TubeBufferGeometry(straightLine, 10, 10, 8, false)
+    const straightMesh = new Mesh(straightGeometry, material)
     straightMesh.rotation.y = Math.PI / 2
     straightMesh.position.z = blockSize / 2
-    const straight = new THREE.Object3D()
+    const straight = new Object3D()
     straight.add(straightMesh)
     // straight.add(blockHelper.clone())
 
