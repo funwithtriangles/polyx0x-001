@@ -5,6 +5,10 @@ html {
   font-size: 14px;
 }
 
+body {
+  overflow: hidden;
+}
+
 *, *:before, *:after {
     box-sizing: inherit;
 }
