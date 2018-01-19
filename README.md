@@ -2,6 +2,7 @@ polyx0x_001
 ===========
 WebGL music video for "Polyop - run_grids".
 
+[See it running](http://polyop.uk/run_grids)
 [Check out the EP on Bandcamp](https://polyop.bandcamp.com/album/run-test-polyx0x-001)
 
 
