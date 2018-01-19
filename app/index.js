@@ -9,6 +9,7 @@ import '../assets/styles/index.scss'
 import '../assets/images/play.svg'
 import '../assets/images/pause.svg'
 import '../assets/images/cover.gif'
+import '../assets/images/share.jpg'
 
 // JS has loaded so add class
 document.body.classList.add('is-loaded')
