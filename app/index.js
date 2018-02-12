@@ -93,16 +93,22 @@ function onWindowResize () {
 
 onWindowResize()
 
-const animate = () => {
-  const time = Date.now()
+let lastNow = performance.now()
+let delta, time
+const msPerFrame = 1000 / 60
 
-  Events.update(time)
-  tower1.update(time)
-  tower2.update(time)
-  blobs.update(time)
+const animate = () => {
+  delta = (performance.now() - lastNow) / msPerFrame
+  lastNow = performance.now()
+  time = performance.now()
+
+  Events.update(time, delta)
+  tower1.update(time, delta)
+  tower2.update(time, delta)
+  blobs.update(time, delta)
 
   if (isRotating === 'smooth') {
-    this.rotatorProps.rotZ += 0.01
+    this.rotatorProps.rotZ += (0.01 * delta)
   }
 
   rotator.rotation.z = this.rotatorProps.rotZ

@@ -102,7 +102,7 @@ class Blobs {
       .start()
   }
 
-  update (time) {
+  update (time, delta) {
     time = time / 1000
     this.time = time
     const object = this.object
@@ -114,8 +114,8 @@ class Blobs {
       this.props.posZ = calcPosZ(time)
     }
 
-    this.group.rotation.x += this.props.rotSpeed
-    this.group.rotation.z += this.props.rotSpeed
+    this.group.rotation.x += this.props.rotSpeed * delta
+    this.group.rotation.z += this.props.rotSpeed * delta
     this.group.position.z = this.props.posZ
 
     // fill the field with some metaballs

@@ -36,7 +36,7 @@ float Pseudo3dNoise(vec3 pos) {
 
 void main() {
 	vec2 uv = vUv.xy;
-  float noiseVal = 0.5 + 0.5 * Pseudo3dNoise(vec3(uv * 1.0, iTime / 2.));
+  float noiseVal = 0.5 + 0.5 * Pseudo3dNoise(vec3(uv * 1.0, iTime / 1000.));
   noiseVal = mod(noiseVal, 0.1) * 10.;
   gl_FragColor = vec4(mix(color1, color2, noiseVal), 1.);
 }

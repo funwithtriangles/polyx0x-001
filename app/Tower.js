@@ -35,7 +35,7 @@ class Tower {
 
     for (let i = 0; i < numWavyMats; i++) {
       const mat = new ShaderMaterial({
-        vertexShader:   vertShader,
+        vertexShader: vertShader,
         fragmentShader: fragShader,
         uniforms: {
           iTime: { value: Date.now(), type: 'f' },
@@ -159,11 +159,10 @@ class Tower {
     flick()
   }
 
-  update (time) {
+  update (time, delta) {
     const blocks = this.blocks
-    const matTime = (time - 1516119639922) / 1000
 
-    this.group.position.z += this.props.speed
+    this.group.position.z += (this.props.speed * delta)
 
     if (this.group.position.z > this.maxZ) {
       this.group.position.z = this.minZ
@@ -183,7 +182,7 @@ class Tower {
     }
 
     for (let i = 0; i < this.wavyMats.length; i++) {
-      this.wavyMats[i].uniforms.iTime.value = matTime
+      this.wavyMats[i].uniforms.iTime.value = time
     }
   }
 }
