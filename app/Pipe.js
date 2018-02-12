@@ -1,8 +1,8 @@
-import { Object3D, TubeBufferGeometry, MeshBasicMaterial,
-  Mesh, Vector3, CubicBezierCurve3, LineCurve3 } from 'three'
+import { TubeGeometry, MeshBasicMaterial,
+  Mesh, Vector3, CubicBezierCurve3, Geometry } from 'three'
 import _ from 'lodash'
 
-class Pipes {
+class Pipe {
   constructor (blockSize, towerHeight) {
     const boundry = [2, 2]
 
@@ -10,7 +10,7 @@ class Pipes {
     // const cubeMaterial = new MeshBasicMaterial({ wireframe: true })
     // const blockHelper = new Mesh(cubeGeom, cubeMaterial)
     const material = new MeshBasicMaterial({ wireframe: true, color: 0x2EFFFD, fog: false })
-    this.group = new Object3D()
+    this.geom = new Geometry()
 
     const createBend = (prevDir, nextDir) => {
       const bendCurve = new CubicBezierCurve3(
@@ -19,25 +19,8 @@ class Pipes {
         new Vector3(0, 0, 0),
         new Vector3(nextDir[0] * blockSize / 2, nextDir[1] * blockSize / 2, nextDir[2] * blockSize / 2)
       )
-      const bendGeom = new TubeBufferGeometry(bendCurve, 10, 10, 8, false)
-      const bendMesh = new Mesh(bendGeom, material)
-      const bend = new Object3D()
-      bend.add(bendMesh)
-      // bend.add(blockHelper.clone())
-      return bend
+      return new TubeGeometry(bendCurve, 10, 10, 8, false)
     }
-
-    const straightLine = new LineCurve3(
-      new Vector3(0, 0, 0),
-      new Vector3(blockSize, 0, 0)
-    )
-    const straightGeometry = new TubeBufferGeometry(straightLine, 10, 10, 8, false)
-    const straightMesh = new Mesh(straightGeometry, material)
-    straightMesh.rotation.y = Math.PI / 2
-    straightMesh.position.z = blockSize / 2
-    const straight = new Object3D()
-    straight.add(straightMesh)
-    // straight.add(blockHelper.clone())
 
     const positions = []
     let nextPos = [1, 0, 0]
@@ -98,22 +81,13 @@ class Pipes {
       const d = positions[i].dir
       const prevDir = i > 0 ? positions[i - 1].dir : [1, 0, 0]
 
-      let s
-
-      if (_.isEqual(prevDir, d)) {
-        s = straight.clone()
-        s.lookAt(d[0], d[1], d[2])
-      } else {
-        s = createBend(prevDir, d)
-      }
-
-      s.position.x = p[0] * blockSize
-      s.position.y = p[1] * blockSize
-      s.position.z = p[2] * blockSize
-
-      this.group.add(s)
+      const s = createBend(prevDir, d)
+      s.translate(p[0] * blockSize, p[1] * blockSize, p[2] * blockSize)
+      this.geom.merge(s)
     }
+
+    this.group = new Mesh(this.geom, material)
   }
 }
 
-export default Pipes
+export default Pipe
