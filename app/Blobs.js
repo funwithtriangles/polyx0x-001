@@ -13,7 +13,8 @@ class Blobs {
     this.scene = scene
     this.delta = Date.now()
 
-    this.cubeCamera = new CubeCamera(1, 10000, 256)
+    this.cubeCamera = new CubeCamera(1, 1000, 64)
+    this.spinCount = 0
 
     setTimeout(() => {
       this.cubeCamera.update(this.renderer, this.scene)
@@ -63,7 +64,12 @@ class Blobs {
   }
 
   spin () {
-    this.cubeCamera.update(this.renderer, this.scene)
+    this.spinCount++
+    // Ony update cube camera every 4 spins
+    if (this.spinCount === 4) {
+      this.cubeCamera.update(this.renderer, this.scene)
+      this.spinCount = 0
+    }
 
     this.props.rotSpeed = 0.2
 
